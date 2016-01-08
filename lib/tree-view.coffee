@@ -827,6 +827,12 @@ class TreeView extends View
   onDragOver: (e) ->
     e.preventDefault()
     e.stopPropagation()
+    target = e.currentTarget
+    return unless target instanceof DirectoryView
+    target.classList.add('selected')
+    setTimeout ->
+      target.expand()
+    , 1000
 
   # Handle entry drop event
   onDrop: (e) ->
