@@ -5,6 +5,7 @@ path = require 'path'
 temp = require('temp').track()
 os = require 'os'
 eventHelpers = require "./event-helpers"
+{getFullExtension} = require "../lib/helpers"
 
 waitsForFileToOpen = (causeFileToOpen) ->
   waitsFor (done) ->
@@ -1547,8 +1548,13 @@ describe "TreeView", ->
               atom.commands.dispatch(treeView.element, "tree-view:paste")
               atom.commands.dispatch(treeView.element, "tree-view:paste")
 
-              expect(fs.existsSync(path.join(path.dirname(filePath), "test-file0.txt"))).toBeTruthy()
-              expect(fs.existsSync(path.join(path.dirname(filePath), "test-file1.txt"))).toBeTruthy()
+              extension = getFullExtension(filePath)
+              file = path.dirname(filePath) + path.sep + path.basename(filePath, extension)
+
+              numberedFileName0 = "#{file}0#{extension}"
+              numberedFileName1 = "#{file}1#{extension}"
+              expect(fs.existsSync(numberedFileName0)).toBeTruthy()
+              expect(fs.existsSync(numberedFileName1)).toBeTruthy()
               expect(fs.existsSync(filePath)).toBeTruthy()
 
         describe "when a file containing two or more periods has been copied", ->
@@ -1576,8 +1582,13 @@ describe "TreeView", ->
                 atom.commands.dispatch(treeView.element, "tree-view:paste")
                 atom.commands.dispatch(treeView.element, "tree-view:paste")
 
-                expect(fs.existsSync(path.join(dirPath, 'test0.file.txt'))).toBeTruthy()
-                expect(fs.existsSync(path.join(dirPath, 'test1.file.txt'))).toBeTruthy()
+                extension = getFullExtension(dotFilePath)
+                file = path.dirname(dotFilePath) + path.sep + path.basename(dotFilePath, extension)
+
+                numberedFileName0 = "#{file}0#{extension}"
+                numberedFileName1 = "#{file}1#{extension}"
+                expect(fs.existsSync(numberedFileName0)).toBeTruthy()
+                expect(fs.existsSync(numberedFileName1)).toBeTruthy()
                 expect(fs.existsSync(dotFilePath)).toBeTruthy()
 
         describe "when a directory is selected", ->
@@ -1598,8 +1609,13 @@ describe "TreeView", ->
               atom.commands.dispatch(treeView.element, "tree-view:paste")
               atom.commands.dispatch(treeView.element, "tree-view:paste")
 
-              expect(fs.existsSync(path.join(path.dirname(filePath), "test-file0.txt"))).toBeTruthy()
-              expect(fs.existsSync(path.join(path.dirname(filePath), "test-file1.txt"))).toBeTruthy()
+              extension = getFullExtension(filePath)
+              file = path.dirname(filePath) + path.sep + path.basename(filePath, extension)
+
+              numberedFileName0 = "#{file}0#{extension}"
+              numberedFileName1 = "#{file}1#{extension}"
+              expect(fs.existsSync(numberedFileName0)).toBeTruthy()
+              expect(fs.existsSync(numberedFileName1)).toBeTruthy()
               expect(fs.existsSync(filePath)).toBeTruthy()
 
         describe "when a directory with a period is selected", ->
@@ -1632,8 +1648,13 @@ describe "TreeView", ->
               atom.commands.dispatch(treeView.element, "tree-view:paste")
               atom.commands.dispatch(treeView.element, "tree-view:paste")
 
-              expect(fs.existsSync(path.join(dotDirPath, "test0.file.txt"))).toBeTruthy()
-              expect(fs.existsSync(path.join(dotDirPath, "test1.file.txt"))).toBeTruthy()
+              extension = getFullExtension(dotFilePath)
+              file = path.dirname(dotFilePath) + path.sep + path.basename(dotFilePath, extension)
+
+              numberedFileName0 = "#{file}0#{extension}"
+              numberedFileName1 = "#{file}1#{extension}"
+              expect(fs.existsSync(numberedFileName0)).toBeTruthy()
+              expect(fs.existsSync(numberedFileName1)).toBeTruthy()
               expect(fs.existsSync(dotFilePath)).toBeTruthy()
 
         describe "when pasting into a different root directory", ->

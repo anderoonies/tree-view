@@ -17,8 +17,9 @@ module.exports =
     styleObject
 
   getFullExtension: (filePath) ->
+    nextExtension = path.extname(filePath)
     fullExtension = ''
-    while extension = path.extname(filePath)
-      fullExtension = extension + fullExtension
-      filePath = path.basename(filePath, extension)
+    while nextExtension isnt ''
+      fullExtension = nextExtension.concat(fullExtension)
+      nextExtension = path.extname(path.basename(filePath, fullExtension))
     fullExtension
